@@ -1,11 +1,12 @@
-package com.school.school.services;
+package com.school.school.service;
 
-import com.school.school.models.BaseEntity;
-import com.school.school.models.Student;
-import com.school.school.repositories.StudentRepository;
+import com.school.school.exceptions.NotFoundException;
+import com.school.school.model.Student;
+import com.school.school.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -36,5 +37,19 @@ public class StudentServiceImpl implements StudentService{
         Set<Student> students = new HashSet<>();
         studentRepository.findAll().iterator().forEachRemaining(students::add);
         return students;
+    }
+
+    @Override
+    public Student getStudentById(Integer studentId) {
+        Optional<Student> student = studentRepository.findById(studentId);
+        if(student.isEmpty()) {
+            throw new NotFoundException("Student not found for ID: " + studentId);
+        }
+        return student.get();
+    }
+
+    @Override
+    public void deleteStudentById(Integer studentId) {
+        studentRepository.deleteById(studentId);
     }
 }

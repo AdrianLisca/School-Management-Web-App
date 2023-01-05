@@ -1,11 +1,9 @@
-package com.school.school.models;
+package com.school.school.model;
 
 import jakarta.persistence.Entity;
-import lombok.Data;
 
 @Entity
-@Data
-public class Student extends BaseEntity{
+public class Teacher extends BaseEntity{
     private String firstName;
     private String lastName;
 }

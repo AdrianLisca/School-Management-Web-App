@@ -1,4 +1,4 @@
-package com.school.school.services;
+package com.school.school.service;
 
 public interface TeacherService {
 }

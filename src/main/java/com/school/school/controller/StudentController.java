@@ -1,7 +1,7 @@
-package com.school.school.controllers;
+package com.school.school.controller;
 
-import com.school.school.models.Student;
-import com.school.school.services.StudentService;
+import com.school.school.model.Student;
+import com.school.school.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/save/user")
+    @PostMapping("/save/student")
     public Student saveStudent(@RequestBody Student newStudent) {
         return studentService.saveStudent(newStudent);
     }
@@ -26,6 +26,17 @@ public class StudentController {
     @GetMapping("/students")
     public ResponseEntity<Set<Student>> getAllStudents() {
      return ResponseEntity.ok(studentService.getStudents());
+    }
+
+    @GetMapping("/student/{id}")
+    public Student getStudentById(@PathVariable("id") Integer studentId) {
+        return studentService.getStudentById(studentId);
+    }
+
+    @DeleteMapping("/student/{id}")
+    public String deleteStudentById(@PathVariable("id") Integer studentId) {
+        studentService.deleteStudentById(studentId);
+        return "Student with ID " + studentId + " deleted successfully!";
     }
 }
 
