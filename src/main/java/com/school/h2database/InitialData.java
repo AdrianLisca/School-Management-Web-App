@@ -1,7 +1,7 @@
-package com.school.school.h2database;
+package com.school.h2database;
 
-import com.school.school.model.Admin;
-import com.school.school.repository.AdminRepository;
+import com.school.model.Admin;
+import com.school.repository.AdminRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;

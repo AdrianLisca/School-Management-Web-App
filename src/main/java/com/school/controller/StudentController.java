@@ -1,7 +1,7 @@
-package com.school.school.controller;
+package com.school.controller;
 
-import com.school.school.model.Student;
-import com.school.school.service.StudentService;
+import com.school.model.Student;
+import com.school.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +37,17 @@ public class StudentController {
     public String deleteStudentById(@PathVariable("id") Integer studentId) {
         studentService.deleteStudentById(studentId);
         return "Student with ID " + studentId + " deleted successfully!";
+    }
+
+    @PutMapping("/student/{id}")
+    public Student updateStudent(@PathVariable("id") Integer studentId,
+                                 @RequestBody Student student) {
+        return studentService.updateStudent(studentId, student);
+    }
+
+    @GetMapping("/student/name/{name}")
+    public Student getStudentByUsername(@PathVariable("name") String username) {
+        return studentService.getStudentByUsername(username);
     }
 }
 

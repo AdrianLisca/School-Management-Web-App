@@ -1,11 +1,12 @@
-package com.school.school.service;
+package com.school.service;
 
-import com.school.school.exceptions.NotFoundException;
-import com.school.school.model.Student;
-import com.school.school.repository.StudentRepository;
+import com.school.exceptions.NotFoundException;
+import com.school.model.Student;
+import com.school.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -51,5 +52,41 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public void deleteStudentById(Integer studentId) {
         studentRepository.deleteById(studentId);
+    }
+
+    @Override
+    public Student updateStudent(Integer studentId, Student student) {
+        Student studentDB = getStudentById(studentId);
+
+        if(Objects.nonNull(student.getUsername()) &&
+                !"".equalsIgnoreCase(student.getUsername())) {
+            studentDB.setUsername(student.getUsername());
+        }
+
+        if(Objects.nonNull(student.getEmail()) &&
+                !"".equalsIgnoreCase(student.getEmail())) {
+            studentDB.setEmail(student.getEmail());
+        }
+
+        if(Objects.nonNull(student.getFirstName()) &&
+                !"".equalsIgnoreCase(student.getFirstName())) {
+            studentDB.setFirstName(student.getFirstName());
+        }
+
+        if(Objects.nonNull(student.getLastName()) &&
+                !"".equalsIgnoreCase(student.getLastName())) {
+            studentDB.setLastName(student.getLastName());
+        }
+
+        return studentRepository.save(studentDB);
+    }
+
+    @Override
+    public Student getStudentByUsername(String username) {
+        Student student = studentRepository.findByUsername(username);
+        if(student == null) {
+            throw new NotFoundException("Student not found for username: " + username);
+        }
+        return student;
     }
 }

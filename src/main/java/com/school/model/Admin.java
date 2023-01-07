@@ -1,4 +1,4 @@
-package com.school.school.model;
+package com.school.model;
 
 import jakarta.persistence.Entity;
 
