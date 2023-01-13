@@ -6,10 +6,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @MappedSuperclass
+@Data
 public abstract class BaseEntity {
 
     @Id
@@ -18,19 +20,13 @@ public abstract class BaseEntity {
 
     @NotBlank
     @Size(max = 20)
-    @Setter
-    @Getter
     private String username;
 
     @NotBlank
     @Size(max = 20)
-    @Setter
-    @Getter
     private String password;
 
     @NotBlank
-    @Setter
-    @Getter
     private String email;
 
     public BaseEntity() {}

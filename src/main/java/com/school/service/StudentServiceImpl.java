@@ -23,7 +23,6 @@ public class StudentServiceImpl implements StudentService{
     public Student saveStudent(Student newStudent) {
 
         Student student = new Student();
-
         student.setUsername(newStudent.getUsername());
         student.setPassword(newStudent.getPassword());
         student.setEmail(newStudent.getEmail());
