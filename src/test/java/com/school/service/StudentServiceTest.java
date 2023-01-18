@@ -44,5 +44,7 @@ class StudentServiceTest {
         Student savedStudent = studentService.getStudentByUsername("Doc");
 
         assertThat(savedStudent).isNotNull();
+        assertThat(savedStudent.getLastName()).isEqualTo("Sheppard");
+        assertThat(savedStudent).isEqualTo(student);
     }
 }

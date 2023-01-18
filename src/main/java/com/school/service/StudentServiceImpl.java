@@ -35,6 +35,7 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public Set<Student> getStudents() {
         Set<Student> students = new HashSet<>();
+        // students.addAll(studentRepository.findAll());
         studentRepository.findAll().iterator().forEachRemaining(students::add);
         return students;
     }
