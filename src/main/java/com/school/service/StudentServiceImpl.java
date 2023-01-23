@@ -5,10 +5,7 @@ import com.school.model.Student;
 import com.school.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -33,10 +30,10 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Set<Student> getStudents() {
-        Set<Student> students = new HashSet<>();
+    public List<Student> getStudents() {
+        List<Student> students = new ArrayList<>();
         // students.addAll(studentRepository.findAll());
-        studentRepository.findAll().iterator().forEachRemaining(students::add);
+        studentRepository.findAllByOrderByIdAsc().iterator().forEachRemaining(students::add);
         return students;
     }
 

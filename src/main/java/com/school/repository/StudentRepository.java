@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
     Student findByUsername(String username);
-    List<Student> findAll();
+    List<Student> findAllByOrderByIdAsc();
 }

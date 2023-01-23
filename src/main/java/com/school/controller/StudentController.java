@@ -20,9 +20,10 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/save/student")
-    public Student saveStudent(@RequestBody Student newStudent) {
-        return studentService.saveStudent(newStudent);
+    @PostMapping("/students")
+    public String saveStudent(@ModelAttribute("student") Student student) {
+        studentService.saveStudent(student);
+        return "redirect:/students";
     }
 
     @GetMapping("/students")
@@ -36,21 +37,37 @@ public class StudentController {
         return studentService.getStudentById(studentId);
     }
 
-    @DeleteMapping("/student/{id}")
-    public String deleteStudentById(@PathVariable("id") Integer studentId) {
-        studentService.deleteStudentById(studentId);
-        return "Student with ID " + studentId + " deleted successfully!";
+    @GetMapping("/students/{id}")
+    public String deleteStudentById(@PathVariable("id") Integer id) {
+        studentService.deleteStudentById(id);
+        return "redirect:/students";
     }
 
-    @PutMapping("/student/{id}")
-    public Student updateStudent(@PathVariable("id") Integer studentId,
-                                 @RequestBody Student student) {
-        return studentService.updateStudent(studentId, student);
+    @PostMapping("/students/{id}")
+    public String updateStudent(@PathVariable Integer id,
+                                 @ModelAttribute("student") Student student,
+                                Model model) {
+        studentService.updateStudent(id, student);
+        return "redirect:/students";
     }
 
     @GetMapping("/student/name/{name}")
     public Student getStudentByUsername(@PathVariable("name") String username) {
         return studentService.getStudentByUsername(username);
     }
+
+    @GetMapping("/students/new")
+    public String createStudentForm(Model model) {
+        Student student = new Student();
+        model.addAttribute("student", student);
+        return "create_student";
+    }
+
+    @GetMapping("/students/edit/{id}")
+    public String editStudentForm(@PathVariable Integer id, Model model) {
+        model.addAttribute("student", studentService.getStudentById(id));
+        return "edit_student";
+    }
+
 }
 
