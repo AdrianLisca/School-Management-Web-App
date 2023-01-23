@@ -3,11 +3,13 @@ package com.school.controller;
 import com.school.model.Student;
 import com.school.service.StudentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@RestController
+@Controller
 @RequestMapping
 public class StudentController {
 
@@ -24,8 +26,9 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public ResponseEntity<Set<Student>> getAllStudents() {
-     return ResponseEntity.ok(studentService.getStudents());
+    public String getAllStudents(Model model) {
+        model.addAttribute("students", studentService.getStudents());
+        return "students";
     }
 
     @GetMapping("/student/{id}")

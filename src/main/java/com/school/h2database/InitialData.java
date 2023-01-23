@@ -1,7 +1,9 @@
 package com.school.h2database;
 
 import com.school.model.Admin;
+import com.school.model.Student;
 import com.school.repository.AdminRepository;
+import com.school.repository.StudentRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -16,15 +18,18 @@ import java.util.Random;
 public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
 
     private final AdminRepository adminRepository;
+    private final StudentRepository studentRepository;
 
-    public InitialData(AdminRepository adminRepository) {
+    public InitialData(AdminRepository adminRepository, StudentRepository studentRepository) {
         this.adminRepository = adminRepository;
+        this.studentRepository = studentRepository;
     }
 
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         adminRepository.save(createAdmin());
+        studentRepository.saveAll(addStudents());
     }
 
     private Admin createAdmin() {
@@ -33,6 +38,38 @@ public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
         newAdmin.setPassword(generatePassword());
         newAdmin.setEmail("school_admin@gmail.com");
         return newAdmin;
+    }
+
+    private List<Student> addStudents() {
+
+        List<Student> students = new ArrayList<>();
+
+        Student johnny = new Student();
+        johnny.setUsername("johnny12");
+        johnny.setPassword("jdfkj33");
+        johnny.setEmail("johnny@gmail.com");
+        johnny.setFirstName("Johnny");
+        johnny.setLastName("DEPP");
+
+        Student jack = new Student();
+        jack.setUsername("doc");
+        jack.setPassword("jdf434333");
+        jack.setEmail("jack@gmail.com");
+        jack.setFirstName("Jack");
+        jack.setLastName("SHEPPARD");
+
+        Student kate = new Student();
+        kate.setUsername("kateaus");
+        kate.setPassword("jdfffdfd33");
+        kate.setEmail("kate@gmail.com");
+        kate.setFirstName("Kate");
+        kate.setLastName("AUSTIN");
+
+        students.add(johnny);
+        students.add(jack);
+        students.add(kate);
+
+        return students;
     }
 
     // it generates a password with a length between 6 and 12 characters

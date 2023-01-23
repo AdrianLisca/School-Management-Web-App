@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -18,5 +20,5 @@ public class Student extends BaseEntity{
     private String lastName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
-    private List<Subject> subjectList;
+    private Set<Subject> subjectList = new HashSet<>();
 }
