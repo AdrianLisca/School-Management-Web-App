@@ -2,6 +2,7 @@ package com.school.h2database;
 
 import com.school.model.Admin;
 import com.school.model.Student;
+import com.school.model.Subject;
 import com.school.repository.AdminRepository;
 import com.school.repository.StudentRepository;
 import org.springframework.context.ApplicationListener;
@@ -50,6 +51,17 @@ public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
         johnny.setEmail("johnny@gmail.com");
         johnny.setFirstName("Johnny");
         johnny.setLastName("DEPP");
+
+        Subject history = new Subject();
+        history.setName("History");
+        Subject english = new Subject();
+        history.setName("English");
+        Subject chemistry = new Subject();
+        history.setName("Chemistry");
+
+        johnny.getSubjectList().add(history);
+        johnny.getSubjectList().add(english);
+        johnny.getSubjectList().add(chemistry);
 
         Student jack = new Student();
         jack.setUsername("doc");

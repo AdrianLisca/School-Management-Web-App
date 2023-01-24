@@ -14,7 +14,9 @@ public class Subject {
     private Integer id;
 
     private String name;
+
     @ManyToOne
+    @JoinColumn(name = "student_id")
     private Student student;
     private List<Integer> grades = new ArrayList<>();
 }
