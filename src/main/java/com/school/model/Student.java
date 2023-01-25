@@ -1,5 +1,7 @@
 package com.school.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -21,4 +23,9 @@ public class Student extends BaseEntity{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Set<Subject> subjectList = new HashSet<>();
+    
+    public void addSubject(Subject subject) {
+        subject.setStudent(this);
+        this.subjectList.add(subject);
+    }
 }

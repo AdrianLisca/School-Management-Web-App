@@ -55,13 +55,13 @@ public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
         Subject history = new Subject();
         history.setName("History");
         Subject english = new Subject();
-        history.setName("English");
+        english.setName("English");
         Subject chemistry = new Subject();
-        history.setName("Chemistry");
+        chemistry.setName("Chemistry");
 
-        johnny.getSubjectList().add(history);
-        johnny.getSubjectList().add(english);
-        johnny.getSubjectList().add(chemistry);
+        johnny.addSubject(history);
+        johnny.addSubject(english);
+        johnny.addSubject(chemistry);
 
         Student jack = new Student();
         jack.setUsername("doc");

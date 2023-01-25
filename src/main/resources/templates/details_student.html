@@ -69,7 +69,7 @@
         <td>
             <form th:action="@{/students/{id}(id=${student.id})/details/subject}" th:object="${student}" method="POST">
                 <div class="form-group">
-                    <label> New subject </label>
+                    <b> Add new subject </b>
                     <input
                             type="text"
                             name="subject"
