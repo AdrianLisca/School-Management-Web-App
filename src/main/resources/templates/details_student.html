@@ -67,22 +67,22 @@
             <td th:text=${subject.name}></td>
         </tr>
         <td>
-            <form th:action="@{/students/{id}(id=${student.id})/details/subject}" th:object="${student}" method="POST">
+            <form th:action="@{/students/details/{id}(id=${student.id})}" th:object="${subject}" method="POST">
                 <div class="form-group">
                     <b> Add new subject </b>
                     <input
                             type="text"
-                            name="subject"
-                            th:field="*{subjectList}"
+                            id="name"
+                            th:field="*{name}"
                             class="form-control"
                             placeholder="Enter new subject"/>
                 </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">
+                        Add subject
+                    </button>
+                </div>
             </form>
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary">
-                    Add subject
-                </button>
-            </div>
         </td>
         </tbody>
     </table>

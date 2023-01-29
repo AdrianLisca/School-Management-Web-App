@@ -1,6 +1,8 @@
 package com.school.controller;
 
 import com.school.model.Student;
+import com.school.model.Subject;
+import com.school.model.Teacher;
 import com.school.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -70,10 +72,21 @@ public class StudentController {
     }
 
     @GetMapping("/students/details/{id}")
-    public String detailsStudentForm(@PathVariable Integer id, Model model) {
-        model.addAttribute("student", studentService.getStudentById(id));
+    public String detailsStudentForm(@PathVariable Integer id, Model studentModel,
+                                     Model subjectModel) {
+        studentModel.addAttribute("student", studentService.getStudentById(id));
+        subjectModel.addAttribute("subject", new Subject());
         return "details_student";
     }
 
+    @PostMapping("/students/details/{id}")
+    public String addSubject(@PathVariable("id") Integer id,
+                             @ModelAttribute("subject") Subject subject) {
+        Student student1 = studentService.getStudentById(id);
+        student1.addSubject(subject);
+        System.out.println(subject.getName());
+        System.out.println(student1.getUsername());
+        return "redirect:/details_student";
+    }
 }
 
