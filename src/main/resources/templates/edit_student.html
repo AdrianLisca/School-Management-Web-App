@@ -34,6 +34,11 @@
         <div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class = "text-center"> Update student </h1>
             <div class = "card-body">
+
+                <ul>
+                    <li class="alert alert-danger" role="alert"
+                        th:each="error : ${#fields.errors('student.*')}" th:text="${error}"/>
+                </ul>
                 <form th:action = "@{/students/{id}(id=${student.id})}" th:object = "${student}" method="POST">
                     <div class = "form-group">
                         <label> Student Username </label>

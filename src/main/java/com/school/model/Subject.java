@@ -18,6 +18,7 @@ public class Subject {
 
     private String name;
 
+//    @ManyToOne
     @ManyToOne
     private Student student;
 
@@ -27,4 +28,5 @@ public class Subject {
     public String toString() {
         return name;
     }
+
 }

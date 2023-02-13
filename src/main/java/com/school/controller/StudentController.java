@@ -2,24 +2,28 @@ package com.school.controller;
 
 import com.school.model.Student;
 import com.school.model.Subject;
-import com.school.model.Teacher;
+import com.school.repository.SubjectRepository;
 import com.school.service.StudentService;
-import org.springframework.http.ResponseEntity;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
 
 @Controller
 @RequestMapping
+@Slf4j
 public class StudentController {
 
     private final StudentService studentService;
 
+    private final SubjectRepository subjectRepository;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, SubjectRepository subjectRepository) {
         this.studentService = studentService;
+        this.subjectRepository = subjectRepository;
     }
 
     @PostMapping("/students")
@@ -47,8 +51,12 @@ public class StudentController {
 
     @PostMapping("/students/{id}")
     public String updateStudent(@PathVariable Integer id,
-                                 @ModelAttribute("student") Student student,
-                                Model model) {
+                                 @Valid @ModelAttribute("student") Student student,
+                                Errors errors) {
+        if(errors.hasErrors()) {
+            log.error("Student update form validation failed due to: " + errors.toString());
+            return "edit_student";
+        }
         studentService.updateStudent(id, student);
         return "redirect:/students";
     }
@@ -72,21 +80,20 @@ public class StudentController {
     }
 
     @GetMapping("/students/details/{id}")
-    public String detailsStudentForm(@PathVariable Integer id, Model studentModel,
-                                     Model subjectModel) {
-        studentModel.addAttribute("student", studentService.getStudentById(id));
-        subjectModel.addAttribute("subject", new Subject());
+    public String detailsStudentForm(@PathVariable Integer id, ModelMap model) {
+        Student student = studentService.getStudentById(id);
+        System.out.println(student.getSubjectList());
+        model.addAttribute("student", student);
+        model.addAttribute("subject", new Subject());
         return "details_student";
     }
 
     @PostMapping("/students/details/{id}")
     public String addSubject(@PathVariable("id") Integer id,
                              @ModelAttribute("subject") Subject subject) {
-        Student student1 = studentService.getStudentById(id);
-        student1.addSubject(subject);
-        System.out.println(subject.getName());
-        System.out.println(student1.getUsername());
-        return "redirect:/details_student";
+        Student student = studentService.getStudentById(id);
+        student.addSubject(subject);
+        return "redirect:/students/details/{id}";
     }
 }
 
