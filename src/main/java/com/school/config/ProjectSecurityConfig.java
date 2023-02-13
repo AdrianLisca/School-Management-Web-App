@@ -21,7 +21,7 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/login").permitAll()
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/students").failureUrl("/login?error=true").permitAll()
-                .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()
+                .and().logout().logoutSuccessUrl("/logout").invalidateHttpSession(true).permitAll()
                 .and().httpBasic();
         return http.build();
     }

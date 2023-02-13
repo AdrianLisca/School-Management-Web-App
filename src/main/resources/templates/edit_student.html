@@ -37,7 +37,7 @@
 
                 <ul>
                     <li class="alert alert-danger" role="alert"
-                        th:each="error : ${#fields.errors('student.*')}" th:text="${error}"/>
+                        th:each="error : ${#fields.errors('student.*')}" th:text="${error}"></li>
                 </ul>
                 <form th:action = "@{/students/{id}(id=${student.id})}" th:object = "${student}" method="POST">
                     <div class = "form-group">

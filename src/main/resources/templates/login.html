@@ -22,6 +22,8 @@
                 <div class = "card-body">
 
                     <form th:action = "@{/login}" method="POST">
+                        <li class="alert alert-danger" role="alert" th:if="${!#strings.isEmpty(errorMessage)}"
+                            th:text="${errorMessage}"></li>
                         <div class = "form-group">
                             <input
                                     type = "text"
