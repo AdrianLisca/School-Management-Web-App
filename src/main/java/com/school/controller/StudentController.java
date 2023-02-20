@@ -92,7 +92,7 @@ public class StudentController {
     public String addSubject(@PathVariable("id") Integer id,
                              @ModelAttribute("subject") Subject subject) {
         Student student = studentService.getStudentById(id);
-        student.addSubject(subject);
+        subject.setStudent(student);
         return "redirect:/students/details/{id}";
     }
 }

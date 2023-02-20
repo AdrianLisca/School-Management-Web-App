@@ -1,5 +1,6 @@
 package com.school.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,14 +16,17 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().ignoringRequestMatchers(PathRequest.toH2Console()).and()
                 .authorizeHttpRequests()
+                .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .requestMatchers("/students/**").hasRole("ADMIN")
-                .requestMatchers("/templates/**").hasRole("ADMIN")
                 .requestMatchers("/login").permitAll()
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/students").failureUrl("/login?error=true").permitAll()
                 .and().logout().logoutSuccessUrl("/logout").invalidateHttpSession(true).permitAll()
                 .and().httpBasic();
+
+        http.headers().frameOptions().disable();
         return http.build();
     }
 
