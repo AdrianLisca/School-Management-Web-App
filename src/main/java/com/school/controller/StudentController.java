@@ -91,8 +91,9 @@ public class StudentController {
     @PostMapping("/students/details/{id}")
     public String addSubject(@PathVariable("id") Integer id,
                              @ModelAttribute("subject") Subject subject) {
-        Student student = studentService.getStudentById(id);
-        subject.setStudent(student);
+//        Student student = studentService.getStudentById(id);
+//        subject.setStudent(student);
+        subjectRepository.save(subject);
         return "redirect:/students/details/{id}";
     }
 }

@@ -43,16 +43,16 @@ public class InitialData implements ApplicationListener<ContextRefreshedEvent> {
         johnny.setFirstName("Johnny");
         johnny.setLastName("DEPP");
 
-        Subject history = new Subject();
-        history.setName("History");
-        Subject english = new Subject();
-        english.setName("English");
-        Subject chemistry = new Subject();
-        chemistry.setName("Chemistry");
-
-        johnny.addSubject(history);
-        johnny.addSubject(english);
-        johnny.addSubject(chemistry);
+//        Subject history = new Subject();
+//        history.setName("History");
+//        Subject english = new Subject();
+//        english.setName("English");
+//        Subject chemistry = new Subject();
+//        chemistry.setName("Chemistry");
+//
+//        johnny.addSubject(history);
+//        johnny.addSubject(english);
+//        johnny.addSubject(chemistry);
 
         Student jack = new Student();
         jack.setUsername("doc");
